@@ -58,112 +58,21 @@ const WEEKS=[
 {week:7,phase:"Peak Strength",sets:4,reps:6,intensity:"85%",deload:false},
 {week:8,phase:"Deload & Test",sets:3,reps:8,intensity:"60%",deload:true}
 ];
-
-const STARTING_WEIGHTS={
-squat:100,deadlift:120,overhead_press:50,db_chest_press:30,
-goblet_squat:28,db_row:28,hip_thrust:60,cable_woodchop:15,
-pallof_press:10,lat_pulldown:50,face_pull:15,leg_curl:30,
-lateral_raise:10,tricep_pushdown:20,bicep_curl:14,
-calf_raise:40,leg_press:120,chest_fly:12,rear_delt_fly:8
-};
-
-const SKI_ERG=[
-"6 x 30s hard / 90s easy","6 x 30s hard / 90s easy",
-"5 x 45s hard / 75s easy","5 x 45s hard / 75s easy",
-"4 x 60s hard / 60s easy","4 x 60s hard / 60s easy",
-"3 x 90s hard / 90s easy","20 min steady \u2014 uncomfortable pace"
-];
-
-const ACTIVATION=[
-{name:"Glute Bridges",detail:"2 \u00d7 15 \u2014 bodyweight, squeeze at top"},
-{name:"Band Pull-Aparts",detail:"2 \u00d7 15 \u2014 light band, focus on scapular retraction"},
-{name:"Cat-Cow + T-Spine Rotation",detail:"1 min each \u2014 slow and controlled"},
-{name:"Band Walks",detail:"2 \u00d7 10 each direction \u2014 maintain tension"}
-];
-
-function getDayExercises(day,week){
-const w=WEEKS[week];
-const s=w.sets, r=w.reps;
-const exercises={
-A:[
-{name:"Back Squat",sets:s,reps:r,key:"squat",compound:true},
-{name:"DB Chest Press",sets:s,reps:r,key:"db_chest_press",compound:true},
-{name:"Cable Woodchop",sets:3,reps:12,key:"cable_woodchop",compound:false},
-{name:"Lat Pulldown",sets:s,reps:r,key:"lat_pulldown",compound:true},
-{name:"Face Pull",sets:3,reps:15,key:"face_pull",compound:false},
-{name:"Pallof Press",sets:3,reps:"10 each side",key:"pallof_press",compound:false}
-],
-B:[
-{name:"Deadlift",sets:s,reps:Math.max(r-2,4),key:"deadlift",compound:true},
-{name:"Overhead Press",sets:s,reps:r,key:"overhead_press",compound:true},
-{name:"DB Row",sets:s,reps:r,key:"db_row",compound:true},
-{name:"Hip Thrust",sets:s,reps:r,key:"hip_thrust",compound:true},
-{name:"Lateral Raise",sets:3,reps:15,key:"lateral_raise",compound:false},
-{name:"Leg Curl",sets:3,reps:12,key:"leg_curl",compound:false}
-],
-C:[
-{name:"Goblet Squat",sets:s,reps:r,key:"goblet_squat",compound:true},
-{name:"Leg Press",sets:s,reps:r,key:"leg_press",compound:true},
-{name:"Chest Fly",sets:3,reps:12,key:"chest_fly",compound:false},
-{name:"Rear Delt Fly",sets:3,reps:15,key:"rear_delt_fly",compound:false},
-{name:"Tricep Pushdown",sets:3,reps:12,key:"tricep_pushdown",compound:false},
-{name:"Bicep Curl",sets:3,reps:12,key:"bicep_curl",compound:false},
-{name:"Calf Raise",sets:3,reps:15,key:"calf_raise",compound:false}
-]
-};
-return exercises[day];
-}
-
-function calcWeight(base,week,compound){
-const w=WEEKS[week];
-if(w.deload) return Math.round(base*0.6/2.5)*2.5;
-const pct=parseFloat(w.intensity)/100;
-if(compound) return Math.round(base*pct/2.5)*2.5;
-const bump=week*0.03;
-return Math.round(base*(1+bump)/2)*2;
-}
-
-let state=JSON.parse(localStorage.getItem('ggt_state')||'null')||{week:0,day:'A',log:{},version:2};
+const STARTING_WEIGHTS={squat:100,deadlift:120,overhead_press:50,db_chest_press:30,goblet_squat:28,db_row:28,hip_thrust:60,cable_woodchop:15,pallof_press:10,lat_pulldown:50,face_pull:15,leg_curl:30,lateral_raise:10,tricep_pushdown:20,bicep_curl:14,calf_raise:40,leg_press:120,chest_fly:12,rear_delt_fly:8};
+const SKI_ERG=["6 x 30s hard / 90s easy","6 x 30s hard / 90s easy","5 x 45s hard / 75s easy","5 x 45s hard / 75s easy","4 x 60s hard / 60s easy","4 x 60s hard / 60s easy","3 x 90s hard / 90s easy","20 min steady \u2014 uncomfortable pace"];
+const ACTIVATION=[{name:"Glute Bridges",detail:"2 \u00d7 15 \u2014 bodyweight, squeeze at top"},{name:"Band Pull-Aparts",detail:"2 \u00d7 15 \u2014 light band, focus on scapular retraction"},{name:"Cat-Cow + T-Spine Rotation",detail:"1 min each \u2014 slow and controlled"},{name:"Band Walks",detail:"2 \u00d7 10 each direction \u2014 maintain tension"}];
+function getDayExercises(day,week){var w=WEEKS[week],s=w.sets,r=w.reps;var exercises={A:[{name:"Back Squat",sets:s,reps:r,key:"squat",compound:true},{name:"DB Chest Press",sets:s,reps:r,key:"db_chest_press",compound:true},{name:"Cable Woodchop",sets:3,reps:12,key:"cable_woodchop",compound:false},{name:"Lat Pulldown",sets:s,reps:r,key:"lat_pulldown",compound:true},{name:"Face Pull",sets:3,reps:15,key:"face_pull",compound:false},{name:"Pallof Press",sets:3,reps:"10 each side",key:"pallof_press",compound:false}],B:[{name:"Deadlift",sets:s,reps:Math.max(r-2,4),key:"deadlift",compound:true},{name:"Overhead Press",sets:s,reps:r,key:"overhead_press",compound:true},{name:"DB Row",sets:s,reps:r,key:"db_row",compound:true},{name:"Hip Thrust",sets:s,reps:r,key:"hip_thrust",compound:true},{name:"Lateral Raise",sets:3,reps:15,key:"lateral_raise",compound:false},{name:"Leg Curl",sets:3,reps:12,key:"leg_curl",compound:false}],C:[{name:"Goblet Squat",sets:s,reps:r,key:"goblet_squat",compound:true},{name:"Leg Press",sets:s,reps:r,key:"leg_press",compound:true},{name:"Chest Fly",sets:3,reps:12,key:"chest_fly",compound:false},{name:"Rear Delt Fly",sets:3,reps:15,key:"rear_delt_fly",compound:false},{name:"Tricep Pushdown",sets:3,reps:12,key:"tricep_pushdown",compound:false},{name:"Bicep Curl",sets:3,reps:12,key:"bicep_curl",compound:false},{name:"Calf Raise",sets:3,reps:15,key:"calf_raise",compound:false}]};return exercises[day];}
+function calcWeight(base,week,compound){var w=WEEKS[week];if(w.deload)return Math.round(base*0.85/2.5)*2.5;var basePct=0.65;var curPct=parseFloat(w.intensity)/100;var multiplier=curPct/basePct;if(compound)return Math.round(base*multiplier/2.5)*2.5;return Math.round(base*multiplier/2)*2;}
+let state=JSON.parse(localStorage.getItem('ggt_state')||'null')||{week:0,day:'A',log:{},version:3};
 function save(){localStorage.setItem('ggt_state',JSON.stringify(state))}
-function logKey(week,day,exIdx,setIdx){return week+'_'+day+'_'+exIdx+'_'+setIdx}
-function weightKey(week,day,exIdx){return 'w_'+week+'_'+day+'_'+exIdx}
-
-function toggleSet(week,day,exIdx,setIdx){
-const k=logKey(week,day,exIdx,setIdx);
-state.log[k]=!state.log[k];
-save();render();
-}
-
-function updateWeight(week,day,exIdx,val){
-const k=weightKey(week,day,exIdx);
-state.log[k]=val;
-save();
-}
-
-function getWeight(week,day,exIdx,defaultW){
-const k=weightKey(week,day,exIdx);
-return state.log[k]!==undefined?state.log[k]:defaultW;
-}
-
-function getProgress(week,day){
-const exs=getDayExercises(day,week);
-let total=0,done=0;
-exs.forEach((ex,ei)=>{
-for(let si=0;si<ex.sets;si++){
-total++;
-if(state.log[logKey(week,day,ei,si)])done++;
-}
-});
-return {total,done,pct:total?Math.round(done/total*100):0};
-}
-
-function render(){
-const app=document.getElementById('app');
-const w=WEEKS[state.week];
-const exs=getDayExercises(state.day,state.week);
-const prog=getProgress(state.week,state.day);
-
-let html='<h1>Golf Gym Tracker</h1>';
+function logKey(w,d,e,s){return w+'_'+d+'_'+e+'_'+s}
+function weightKey(w,d,e){return 'w_'+w+'_'+d+'_'+e}
+function toggleSet(w,d,e,s){var k=logKey(w,d,e,s);state.log[k]=!state.log[k];save();render();}
+function updateWeight(w,d,e,v){state.log[weightKey(w,d,e)]=v;save();}
+function getWeight(w,d,e,def){var k=weightKey(w,d,e);return state.log[k]!==undefined?state.log[k]:def;}
+function getProgress(week,day){var exs=getDayExercises(day,week);var total=0,done=0;exs.forEach(function(ex,ei){for(var si=0;si<ex.sets;si++){total++;if(state.log[logKey(week,day,ei,si)])done++;}});return{total:total,done:done,pct:total?Math.round(done/total*100):0};}
+function render(){var app=document.getElementById('app');var w=WEEKS[state.week];var exs=getDayExercises(state.day,state.week);var prog=getProgress(state.week,state.day);
+var html='<h1>Golf Gym Tracker</h1>';
 html+='<div class="subtitle">Schoolhouse Gym \u2014 Hog Hill, Ballymena</div>';
 html+='<div class="week-nav">';
 html+='<button onclick="if(state.week>0){state.week--;save();render()}" '+(state.week===0?'disabled':'')+'>\u25c0</button>';
@@ -178,35 +87,12 @@ html+='<button class="'+(state.day==="C"?"active":"")+'" onclick="state.day=\'C\
 html+='</div>';
 html+='<div class="progress-bar"><div class="progress-text">Today: '+prog.done+'/'+prog.total+' sets ('+prog.pct+'%)</div><div class="progress-track"><div class="progress-fill" style="width:'+prog.pct+'%"></div></div></div>';
 html+='<div class="section-title">Activation (5 min)</div>';
-ACTIVATION.forEach(function(a){
-html+='<div class="exercise"><div class="exercise-name">'+a.name+'<span class="activation-tag">ACTIVATION</span></div><div class="exercise-detail">'+a.detail+'</div></div>';
-});
+ACTIVATION.forEach(function(a){html+='<div class="exercise"><div class="exercise-name">'+a.name+'<span class="activation-tag">ACTIVATION</span></div><div class="exercise-detail">'+a.detail+'</div></div>';});
 html+='<div class="section-title">Main Lifts</div>';
-exs.forEach(function(ex,ei){
-var defW=calcWeight(STARTING_WEIGHTS[ex.key]||20,state.week,ex.compound);
-var curW=getWeight(state.week,state.day,ei,defW);
-html+='<div class="exercise">';
-html+='<div class="exercise-name">'+ex.name+'</div>';
-html+='<div class="exercise-detail">'+ex.sets+' sets \u00d7 '+ex.reps+' reps \u2014 suggested '+defW+'kg</div>';
-html+='<div class="sets-grid">';
-for(var si=0;si<ex.sets;si++){
-var done=state.log[logKey(state.week,state.day,ei,si)];
-html+='<div class="set-row">';
-html+='<span class="set-label">Set '+(si+1)+'</span>';
-html+='<input type="number" class="weight-input" value="'+curW+'" step="2.5" inputmode="decimal" onchange="updateWeight('+state.week+',\''+state.day+'\','+ei+',parseFloat(this.value))">';
-html+='<span class="kg-label">kg</span>';
-html+='<span class="reps-display">\u00d7 '+ex.reps+'</span>';
-html+='<button class="set-check '+(done?'done':'')+'" onclick="toggleSet('+state.week+',\''+state.day+'\','+ei+','+si+')">'+(done?'\u2713':'\u25cb')+'</button>';
-html+='</div>';
-}
-html+='</div></div>';
-});
+exs.forEach(function(ex,ei){var defW=calcWeight(STARTING_WEIGHTS[ex.key]||20,state.week,ex.compound);var curW=getWeight(state.week,state.day,ei,defW);html+='<div class="exercise"><div class="exercise-name">'+ex.name+'</div><div class="exercise-detail">'+ex.sets+' sets \u00d7 '+ex.reps+' reps \u2014 suggested '+defW+'kg</div><div class="sets-grid">';for(var si=0;si<ex.sets;si++){var done=state.log[logKey(state.week,state.day,ei,si)];html+='<div class="set-row"><span class="set-label">Set '+(si+1)+'</span><input type="number" class="weight-input" value="'+curW+'" step="2.5" inputmode="decimal" onchange="updateWeight('+state.week+',\''+state.day+'\','+ei+',parseFloat(this.value))"><span class="kg-label">kg</span><span class="reps-display">\u00d7 '+ex.reps+'</span><button class="set-check '+(done?'done':'')+'" onclick="toggleSet('+state.week+',\''+state.day+'\','+ei+','+si+')">'+(done?'\u2713':'\u25cb')+'</button></div>';}html+='</div></div>';});
 html+='<div class="section-title">Ski Erg Finisher</div>';
 html+='<div class="cardio-box"><div class="exercise-name">Ski Erg</div><div class="cardio-detail">'+SKI_ERG[state.week]+'</div></div>';
 html+='<button class="reset-btn" onclick="if(confirm(\'Reset ALL data? This cannot be undone.\')){localStorage.removeItem(\'ggt_state\');location.reload()}">Reset All Data</button>';
-app.innerHTML=html;
-}
+app.innerHTML=html;}
 render();
-</script>
-</body>
-</html>
+</script></body></html>
