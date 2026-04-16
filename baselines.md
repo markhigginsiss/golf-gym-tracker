@@ -19,7 +19,7 @@ Note: Previous 1RMs below were hit at 85-90kg bodyweight.
 
 ## Accessory Lifts (Week 1 Working Weights)
 
-| Exercise | Week 1 Weight | Notes |
+| Exercise | Week 1 Weight | Notes 
 |----------|--------------|-------|
 | Cable Woodchop | 15kg | Per side |
 | Pallof Press | 10kg | Per side |
@@ -37,8 +37,8 @@ Note: Previous 1RMs below were hit at 85-90kg bodyweight.
 
 | Lift | 1RM |
 |------|-----|
-| Squat | 180kg |
-| Deadlift | 220kg |
+| Squat | 195kg |
+| Deadlift | 240kg |
 | Bench Press | 120kg |
 
 ## Progression Model
